@@ -11,7 +11,11 @@ myApp.config(['$routeProvider', function($routeProvider) {
     }).
     when('/addplaymate', {
       templateUrl: '/views/addplaymate.html',
-      controller: 'AddPlaymateController'
+      controller: 'PlaymateController'
+    }).
+    when('/showplaymates', {
+      templateUrl: '/views/showplaymates.html',
+      controller: 'PlaymateController'
     }).
     otherwise({
     redirectTo: 'home'

@@ -21,6 +21,16 @@
       <input type="radio" class="form-control" ng-model="genderIn" value="female"> Female
     </label>
   </div>
+  <div class="form-group">
+    <label>
+      <input type="checkbox" class="form-control" ng-model="sterileIn" value="yes"> Neutered or Spayed
+    </label>
+  </div>
+  <div class="form-group">
+    <label>
+      <input type="checkbox" class="form-control" ng-model="vaccinatedIn" value="yes"> Vaccinated
+    </label>
+  </div>
 </form>
 <div>
   <button id="addButton" ng-click="addPlaymate()" type="submit" class="btn btn-danger">Add Playmate</button>

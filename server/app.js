@@ -11,10 +11,10 @@ app.use(express.static('client'));
 app.use(bodyParser.json());
 
 // include routes
-var addPlaymate = require('./routes/addPlaymate');
+var playmate = require('./routes/playmate');
 
 // use routes
-app.use('/', addPlaymate);
+app.use('/', playmate);
 
 
 // base url to show path resolved index.html
