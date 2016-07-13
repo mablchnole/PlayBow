@@ -1,0 +1,27 @@
+<h1>Add Playmate</h1>
+
+<form role="form">
+  <div class="form-group">
+    <label>Name:</label>
+    <input type="text" class="form-control" ng-model="nameIn" placeholder="Name">
+  </div>
+  <div class="form-group">
+    <label>Breed:</label>
+    <input type="text" class="form-control" ng-model="breedIn" placeholder="Breed">
+  </div>
+  <div class="form-group">
+    <label>Age:</label>
+    <input type="text" class="form-control" ng-model="ageIn" placeholder="Age">
+  </div>
+  <div class="form-group">
+    <label>
+      <input type="radio" class="form-control" ng-model="genderIn" value="male"> Male
+    </label>
+    <label>
+      <input type="radio" class="form-control" ng-model="genderIn" value="female"> Female
+    </label>
+  </div>
+</form>
+<div>
+  <button id="addButton" ng-click="addPlaymate()" type="submit" class="btn btn-danger">Add Playmate</button>
+</div>

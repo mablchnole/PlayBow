@@ -9,9 +9,12 @@ app.use(express.static('client'));
 
 // base url to show path resolved index.html
 app.get('/', function(req, res){
+  console.log('bow wow at basecamp');
   res.sendFile(path.resolve('client/views/index.html'));
 });
 
+// include routes
+var addplaymate = require('./routes/addplaymateroute');
 
 
 
@@ -22,5 +25,5 @@ app.get('/', function(req, res){
 app.set('port', process.env.PORT || 3000);
 
 app.listen(app.get('port'), function() {
-  console.log('count your rainbows:', app.get('port'));
+  console.log('human, are you awake:', app.get('port'));
 });

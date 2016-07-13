@@ -1,3 +1,5 @@
+console.log("my dogs thinks i'm pretty awesome");
+
 var myApp = angular.module('myApp', [
   'ngRoute'
 ]);
@@ -8,7 +10,8 @@ myApp.config(['$routeProvider', function($routeProvider) {
       templateUrl: '/views/home.html'
     }).
     when('/addplaymate', {
-      templateUrl: '/views/addplaymate.html'
+      templateUrl: '/views/addplaymate.html',
+      controller: 'AddPlaymateController'
     }).
     otherwise({
     redirectTo: 'home'
