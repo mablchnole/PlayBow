@@ -24,22 +24,6 @@ router.post('/addPlaymate', function (req, res){
   });
 }); // end addPlaymate route
 
-// post route to add playmate to a favorites list
-router.post('/addFave', function(req, res) {
-  console.log('my fave doggy on the server:', req.body.name);
-  pg.connect(connectionString, function(err, client, done) {
-    if(err) {
-      console.log(err);
-      res.send(false);
-    } // end error
-    else {
-      var saveFave = client.query('INSERT INTO favorites (name, breed, age, gender, sterile, vaccinated) VALUES ($1, $2, $3, $4, $5, $6)',
-        [req.body.name, req.body.breed, req.body.age, req.body.gender, req.body.sterile, req.body.vaccinated]);
-      res.send(true);
-    }
-  });
-}); // end addFave
-
 // get route to retrieve all playmates from the database
 router.get('/getPlaymates', function(req, res) {
   var results = [];

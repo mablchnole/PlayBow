@@ -1,6 +1,7 @@
 myApp.controller('PlaymateController', ['$scope', '$http', function($scope, $http) {
   console.log('paws on AddPlaymateController');
   $scope.allPlaymates = [];
+  $scope.favePlaymates = [];
 
   // collect data for new playmate and send to server
   $scope.addPlaymate = function(){
@@ -53,26 +54,10 @@ myApp.controller('PlaymateController', ['$scope', '$http', function($scope, $htt
   $scope.displayPlaymates();
 
   // add a playmate to favorites
-  $scope.addFave = function() {
-    console.log('in addFave with my buddies');
-    // add playmate to favorites in database
-    var faveToSend = {
-      name: $scope.allPlaymates.nameIn,
-      breed: $scope.allPlaymates.breedIn,
-      age: $scope.allPlaymates.ageIn,
-      gender: $scope.allPlaymates.genderIn,
-      sterile: $scope.allPlaymates.sterileIn,
-      vaccinated: $scope.allPlaymates.vaccinatedIn
-    };
-    $http({
-      method: 'POST',
-      url: '/addFave',
-      data: faveToSend
-    }).then(function(response) {
-      console.log('back from adding to doggy faves:', faveToSend.name);
-    });
-    // remove from all playmates list
-    // $scope.allPlaymates.splice(index);
+  $scope.addFave = function(index) {
+    console.log('in all my faves');
+    // push playmate to favorites array
+    $scope.favePlaymates.push($scope.allPlaymates[index]);
   }; // end addFave
 
 }]);
