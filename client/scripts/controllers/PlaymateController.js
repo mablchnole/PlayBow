@@ -98,5 +98,21 @@ angular.module('myApp').controller('PlaymateController', ['$scope', '$http', fun
   }; // end displayPlaymates
   $scope.displayFaves();
 
+  // remove fave from fave list
+  $scope.removeFave = function(faveId) {
+    var idToSend = {
+      id: faveId
+    };
+    console.log(faveId);
+    $http ({
+      method: 'DELETE',
+      url: '/removeFave',
+      data: idToSend,
+      headers: {'Content-Type': 'application/json;charset=utf-8'}
+    }).then(function() {
+      $scope.displayFaves();
+      console.log('back from server in removeFave');
+    });
+  }; // end removeFave
 
 }]);

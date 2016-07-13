@@ -87,5 +87,21 @@ router.get('/getFaves', function(req, res) {
   }); // end pg connect
 }); // end getFaves route
 
+// remove fave from database
+router.delete('/removeFave', function (req, res){
+  console.log('in server going to db to remove fave');
+  pg.connect(connectionString, function(err, client, done){
+    client.query('DELETE FROM favorites WHERE id=' + req.body.id);
+    console.log('in delete route removeFave id:', req.body.id);
+    if(err){
+      res.sendStatus(500);
+    } else {
+      res.sendStatus(200);
+    }
+    done();
+    console.log('back from database delete route');
+  });
+}); // end removeFave
+
 
 module.exports = router;
