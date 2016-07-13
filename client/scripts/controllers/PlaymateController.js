@@ -1,7 +1,11 @@
-myApp.controller('PlaymateController', ['$scope', '$http', function($scope, $http) {
+angular.module('myApp').controller('PlaymateController', ['$scope', '$http', function($scope, $http) {
   console.log('paws on AddPlaymateController');
   $scope.allPlaymates = [];
   $scope.favePlaymates = [];
+
+  ////////////////////////////////////////////////////////////
+  //             SEND NEW PLAYMATES TO SERVER               //
+  ////////////////////////////////////////////////////////////
 
   // collect data for new playmate and send to server
   $scope.addPlaymate = function(){
@@ -17,7 +21,7 @@ myApp.controller('PlaymateController', ['$scope', '$http', function($scope, $htt
       sterile: $scope.sterileIn,
       vaccinated: $scope.vaccinatedIn
     }; // end playmateToSend
-    // $scope.allPlaymates.push(playmateToSend);
+
     console.log('sending to server:', playmateToSend);
 
     // post route to send new data to server
@@ -53,11 +57,46 @@ myApp.controller('PlaymateController', ['$scope', '$http', function($scope, $htt
   }; // end displayPlaymates
   $scope.displayPlaymates();
 
-  // add a playmate to favorites
-  $scope.addFave = function(index) {
-    console.log('in all my faves');
-    // push playmate to favorites array
-    $scope.favePlaymates.push($scope.allPlaymates[index]);
+  ////////////////////////////////////////////////////////////
+  //             SEND FAVORITES TO SERVER                   //
+  ////////////////////////////////////////////////////////////
+
+  // send selected favorites to the database
+  $scope.addFave = function(index){
+    console.log('addFave button clicked');
+    var faveToSend = {
+      name: $scope.allPlaymates[index].name,
+      breed: $scope.allPlaymates[index].breed,
+      age: $scope.allPlaymates[index].age,
+      gender: $scope.allPlaymates[index].gender,
+      sterile: $scope.allPlaymates[index].sterile,
+      vaccinated: $scope.allPlaymates[index].vaccinated
+    };
+    console.log('sending fave to server:', faveToSend);
+    // post route to send fave to server
+    $http({
+      method: 'POST',
+      url: '/addFave',
+      data: faveToSend
+    }).then(function() {
+      $scope.displayFaves();
+    }); // end post route
   }; // end addFave
+
+  // get route to retrieve faves from server to display
+  $scope.displayFaves = function() {
+    // retrieve data from server
+    $http({
+      method: 'GET',
+      url: '/getFaves'
+    }).then(function(response) {
+      $scope.favePlaymates = response.data;
+      console.log('so many fave furiends!', response.data);
+    }, function myError (response) {
+      console.log(response.statusText);
+    });
+  }; // end displayPlaymates
+  $scope.displayFaves();
+
 
 }]);

@@ -1,5 +1,3 @@
-console.log("my dogs thinks i'm pretty awesome");
-
 var myApp = angular.module('myApp', [
   'ngRoute'
 ]);
