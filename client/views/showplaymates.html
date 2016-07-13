@@ -1,11 +1,13 @@
 <h1>Show Playmates</h1>
 
 <div ng-repeat="playmate in allPlaymates">
-  <p> {{ playmate.name }} </p>
-  <p> {{ playmate.breed }} </p>
-  <p> {{ playmate.age }} </p>
-  <p> {{ playmate.gender }} </p>
-  <p> {{ playmate.sterile }} </p>
-  <p> {{ playmate.vaccinated }} </p>
-
+  <p>
+    {{ playmate.name }},
+    {{ playmate.breed }},
+    {{ playmate.age }},
+    {{ playmate.gender }},
+    {{ playmate.sterile }},
+    {{ playmate.vaccinated }}
+    <button type="button" name="button" ng-click="addFave()">Add to Favorites</button>
+  </p>
 </div>

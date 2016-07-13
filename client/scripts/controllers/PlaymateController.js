@@ -16,7 +16,7 @@ myApp.controller('PlaymateController', ['$scope', '$http', function($scope, $htt
       sterile: $scope.sterileIn,
       vaccinated: $scope.vaccinatedIn
     }; // end playmateToSend
-    $scope.allPlaymates.push(playmateToSend);
+    // $scope.allPlaymates.push(playmateToSend);
     console.log('sending to server:', playmateToSend);
 
     // post route to send new data to server
@@ -51,5 +51,28 @@ myApp.controller('PlaymateController', ['$scope', '$http', function($scope, $htt
     });
   }; // end displayPlaymates
   $scope.displayPlaymates();
+
+  // add a playmate to favorites
+  $scope.addFave = function() {
+    console.log('in addFave with my buddies');
+    // add playmate to favorites in database
+    var faveToSend = {
+      name: $scope.allPlaymates.nameIn,
+      breed: $scope.allPlaymates.breedIn,
+      age: $scope.allPlaymates.ageIn,
+      gender: $scope.allPlaymates.genderIn,
+      sterile: $scope.allPlaymates.sterileIn,
+      vaccinated: $scope.allPlaymates.vaccinatedIn
+    };
+    $http({
+      method: 'POST',
+      url: '/addFave',
+      data: faveToSend
+    }).then(function(response) {
+      console.log('back from adding to doggy faves:', faveToSend.name);
+    });
+    // remove from all playmates list
+    // $scope.allPlaymates.splice(index);
+  }; // end addFave
 
 }]);
