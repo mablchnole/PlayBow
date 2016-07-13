@@ -34,7 +34,7 @@ router.get('/getPlaymates', function(req, res) {
       results.push(row);
     }); // end query push
     callDatabase.on('end', function(){
-      console.log("who let the dogs out:", + results);
+      console.log('who let the dogs out?!', results);
       return res.json(results);
     });
     if(err) {

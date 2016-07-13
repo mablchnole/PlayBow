@@ -45,7 +45,7 @@ myApp.controller('PlaymateController', ['$scope', '$http', function($scope, $htt
       url: '/getPlaymates'
     }).then(function(response) {
       $scope.allPlaymates = response.data;
-      console.log('so many new furiends!', + response.data);
+      console.log('so many new furiends!', response.data);
     }, function myError (response) {
       console.log(response.statusText);
     });
