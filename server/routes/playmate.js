@@ -5,6 +5,13 @@ var bodyParser = require('body-parser');
 var router = express.Router();
 var pg = require('pg');
 
+// require to upload images
+var multer = require('multer');
+var fs = require('fs');
+var multerS3 = require('multer-s3');
+var aws = require('aws-sdk');
+var s3 = new aws.S3();
+
 var connectionString = require('../modules/connection');
 
 ////////////////////////////////////////////////////////////
@@ -102,6 +109,33 @@ router.delete('/removeFave', function (req, res){
     console.log('back from database delete route');
   });
 }); // end removeFave
+
+////////////////////////////////////////////////////////////
+//                 UPLOAD IMAGES ROUTES                   //
+////////////////////////////////////////////////////////////
+
+var upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: 'prime-digital-academy-playbow',
+    acl: 'public-read',
+    metadata: function (req, file, cb) {
+      cb(null, {fieldName: file.fieldname});
+    },
+    key: function (req, file, cb) {
+      // file name generation
+      cb(null, Date.now().toString());
+    }
+  })
+}); // end multer upload
+
+// upload post route
+router.post('/uploads', upload.single('file'), function(req, res) {
+  res.send('success');
+});
+
+// get uploads
+
 
 
 module.exports = router;

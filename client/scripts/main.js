@@ -1,5 +1,6 @@
 var myApp = angular.module('myApp', [
-  'ngRoute'
+  'ngRoute',
+  'ngFileUpload'
 ]);
 
 myApp.config(['$routeProvider', function($routeProvider) {

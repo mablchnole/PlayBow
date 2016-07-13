@@ -10,7 +10,7 @@ angular.module('myApp').controller('PlaymateController', [
     $scope.favePlaymates = [];
 
     ////////////////////////////////////////////////////////////
-    //             SEND NEW PLAYMATES TO SERVER               //
+    //            ADDING & DELETING NEW PLAYMATES             //
     ////////////////////////////////////////////////////////////
 
     // collect data for new playmate and send to server
@@ -64,7 +64,7 @@ angular.module('myApp').controller('PlaymateController', [
     $scope.displayPlaymates();
 
     ////////////////////////////////////////////////////////////
-    //             SEND FAVORITES TO SERVER                   //
+    //           ADDING & REMOVING FROM FAVES LIST            //
     ////////////////////////////////////////////////////////////
 
     // send selected favorites to the database
@@ -120,5 +120,47 @@ angular.module('myApp').controller('PlaymateController', [
         console.log('back from server in removeFave');
       });
     }; // end removeFave
+
+    ////////////////////////////////////////////////////////////
+    //               IMAGE UPLOADING FUNCTIONS                //
+    ////////////////////////////////////////////////////////////
+
+    $scope.submit = function() {
+      if ($scope.form.file.$valid && $scope.file) {
+          $scope.upload($scope.file);
+          console.log('file', $scope.file);
+      }
+    }; // end submit
+
+    // loads page with images
+    function getImages() {
+      $http.get('/uploads')
+      .then(function(response) {
+          $scope.uploads = response.data;
+          console.log('GET /uploads ', response.data);
+      });
+    } // end getImages
+
+    $scope.upload = function(file) {
+      Upload.upload ({
+        url: '/uploads',
+        data: {
+          file: file,
+          'user': $scope.user,
+          'comment': $scope.comment
+        } // end data
+      }).then(function(resp) {
+          console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+          getImages();
+      }, function(resp) {
+          console.log('Error status: ' + resp.status);
+      }, function(evt) {
+          var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+          console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+      });
+  }; // end upload function
+
+
+
 
 }]);

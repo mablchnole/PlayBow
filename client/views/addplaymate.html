@@ -1,6 +1,25 @@
 <h1>Add Playmate</h1>
 
+
+
+
+
 <form role="form">
+
+  <div class="listHeader">
+    Add a profile pic!
+  </div>
+  <div class="listBody fileUpload">
+    <div ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 800, height: 800}">
+      <button>Select Picture</button> <span class="fileSelect"> {{file.$ngfName}} </span> <img ngf-thumbnail="file || '/images/upload.svg'">
+    </div>
+    <input type="text" ng-model="comment" placeholder="Add comment.. location, which plant is it in the picture, etc. " class="u-full-width" />
+    <button type="submit" ng-click="submit()">Upload</button>
+  </div>
+
+
+
+
   <div class="form-group">
     <label>Name:</label>
     <input type="text" class="form-control" ng-model="nameIn" placeholder="Name">
