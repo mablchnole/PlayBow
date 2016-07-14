@@ -8,8 +8,8 @@ angular.module('myApp').controller('PlaymateController', [
     console.log('paws on PlaymateController');
     $scope.allPlaymates = [];
     $scope.favePlaymates = [];
-    $scope.playstyles = ['chaser', 'cheerleader'];
-
+    // $scope.playstyles = ['chaser', 'cheerleader'];
+    $scope.playstyles = [];
 
     ////////////////////////////////////////////////////////////
     //  ADDING NEW PLAYMATE, IMAGES & POST METHOD TO SERVER   //
@@ -58,24 +58,24 @@ angular.module('myApp').controller('PlaymateController', [
         });
 
 
-        // $scope.add = function(value){
-        //     if (!angular.isArray($scope.playstyles)){
-        //       $scope.playstyles = [];
-        //     }
-        //     if (-1 === $scope.playstyles.indexOf(value)){
-        //       $scope.playstyles.push(value);
-        //       console.log('checkbox function array:', $scope.playstyles);
-        //     }
-        //   };
-        //   $scope.remove = function(value){
-        //     if (!angular.isArray($scope.playstyles)) {
-        //       return;
-        //     }
-        //     var index = $scope.playstyles.indexOf(value);
-        //     if (-1 !== index) {
-        //       $scope.playstyles.splice(index, 1);
-        //     }
-        //   };
+        $scope.add = function(value){
+            if (!angular.isArray($scope.playstyles)){
+              $scope.playstyles = [];
+            }
+            if (-1 === $scope.playstyles.indexOf(value)){
+              $scope.playstyles.push(value);
+              console.log('checkbox function array:', $scope.playstyles);
+            }
+          };
+          $scope.remove = function(value){
+            if (!angular.isArray($scope.playstyles)) {
+              return;
+            }
+            var index = $scope.playstyles.indexOf(value);
+            if (-1 !== index) {
+              $scope.playstyles.splice(index, 1);
+            }
+          };
 
 
 
