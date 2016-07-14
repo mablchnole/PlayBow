@@ -1,21 +1,7 @@
-<h1>Add Playmate</h1>
+<div class="container">
+  <h1>Add Playmate</h1>
 
-<!-- <form name="form" class="listItem">
-  <div class="listHeader">
-    Add a profile pic!
-  </div>
-  <div class="listBody fileUpload">
-    <div ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 800, height: 800}">
-      <button>Select Picture</button> <span class="fileSelect"> {{file.$ngfName}} </span> <img ngf-thumbnail="file || '/images/upload.svg'">
-    </div>
-    <input type="text" ng-model="comment" placeholder="Add comment.. location, which plant is it in the picture, etc. " class="u-full-width" />
-    <button type="submit" ng-click="submit()">Upload</button>
-  </div>
-</form> -->
-
-
-<form role="form" name="form">
-
+  <form role="form" name="form">
   <div class="form-group">
     <label>Upload Image:</label>
     <div ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 800, height: 800}">
@@ -57,8 +43,9 @@
       <input type="checkbox" class="form-control" ng-model="vaccinatedIn" value="yes"> Vaccinated
     </label>
   </div>
-</form>
-<div>
+  </form>
+  <div>
   <button type="submit" ng-click="submit()">Submit</button>
   <!-- <button id="addButton" ng-click="upload()" type="submit" class="btn btn-danger">Add Playmate</button> -->
+  </div>
 </div>

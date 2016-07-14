@@ -5,7 +5,7 @@ angular.module('myApp').controller('PlaymateController', [
   '$location',
   'Upload',
   function($scope, $http, $window, $location, Upload) {
-    console.log('paws on AddPlaymateController');
+    console.log('paws on PlaymateController');
     $scope.allPlaymates = [];
     $scope.favePlaymates = [];
 
