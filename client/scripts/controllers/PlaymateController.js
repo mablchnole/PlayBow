@@ -112,7 +112,8 @@ angular.module('myApp').controller('PlaymateController', [
         age: $scope.allPlaymates[index].age,
         gender: $scope.allPlaymates[index].gender,
         sterile: $scope.allPlaymates[index].sterile,
-        vaccinated: $scope.allPlaymates[index].vaccinated
+        vaccinated: $scope.allPlaymates[index].vaccinated,
+        location: $scope.allPlaymates[index].location
       };
       console.log('sending fave to server:', faveToSend);
       // post route to send fave to server
