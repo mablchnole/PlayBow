@@ -1,6 +1,7 @@
 var myApp = angular.module('myApp', [
   'ngRoute',
-  'ngFileUpload'
+  'ngFileUpload',
+  'msieurtoph.ngCheckboxes'
 ]);
 
 myApp.config(['$routeProvider', function($routeProvider) {

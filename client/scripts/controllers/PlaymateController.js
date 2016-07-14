@@ -8,6 +8,8 @@ angular.module('myApp').controller('PlaymateController', [
     console.log('paws on PlaymateController');
     $scope.allPlaymates = [];
     $scope.favePlaymates = [];
+    $scope.playstyles = ['chaser', 'cheerleader'];
+
 
     ////////////////////////////////////////////////////////////
     //  ADDING NEW PLAYMATE, IMAGES & POST METHOD TO SERVER   //
@@ -32,6 +34,7 @@ angular.module('myApp').controller('PlaymateController', [
         } // end data
       }).then(function(resp) {
         console.log('in then success block, upload method:', resp.data.location);
+
         // collect user input to send to database
         var playmateToSend = {
           name: $scope.nameIn,
@@ -41,7 +44,8 @@ angular.module('myApp').controller('PlaymateController', [
           sterile: $scope.sterileIn,
           vaccinated: $scope.vaccinatedIn,
           location: resp.data.location,
-          size: $scope.sizeIn
+          size: $scope.sizeIn,
+          playstyles: $scope.playstyles
         };
         console.log('sending to server:', playmateToSend);
         // post method to send input data to database
@@ -52,6 +56,32 @@ angular.module('myApp').controller('PlaymateController', [
         }).then(function() {
           $scope.displayPlaymates();
         });
+
+
+        // $scope.add = function(value){
+        //     if (!angular.isArray($scope.playstyles)){
+        //       $scope.playstyles = [];
+        //     }
+        //     if (-1 === $scope.playstyles.indexOf(value)){
+        //       $scope.playstyles.push(value);
+        //       console.log('checkbox function array:', $scope.playstyles);
+        //     }
+        //   };
+        //   $scope.remove = function(value){
+        //     if (!angular.isArray($scope.playstyles)) {
+        //       return;
+        //     }
+        //     var index = $scope.playstyles.indexOf(value);
+        //     if (-1 !== index) {
+        //       $scope.playstyles.splice(index, 1);
+        //     }
+        //   };
+
+
+
+
+
+
         // clears out our input
         $scope.nameIn = '';
         $scope.breedIn = '';

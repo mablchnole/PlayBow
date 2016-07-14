@@ -25,8 +25,8 @@ router.post('/addPlaymate', function (req, res){
     if(err){
       console.log(err);
     } else {
-      var sendPlaymate = client.query('INSERT INTO playmates (name, breed, age, gender, sterile, vaccinated, location, size) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
-        [req.body.name, req.body.breed, req.body.age, req.body.gender, req.body.sterile, req.body.vaccinated, req.body.location, req.body.size]);
+      var sendPlaymate = client.query('INSERT INTO playmates (name, breed, age, gender, sterile, vaccinated, location, size, playstyles) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
+        [req.body.name, req.body.breed, req.body.age, req.body.gender, req.body.sterile, req.body.vaccinated, req.body.location, req.body.size, req.body.playstyles]);
       sendPlaymate.on('end', function(){
         return res.end();
       });

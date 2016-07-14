@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "angular-checkboxes": "^1.0.2",
     "aws-sdk": "^2.4.6",
     "body-parser": "^1.15.2",
     "checklist-model": "^0.10.0",
