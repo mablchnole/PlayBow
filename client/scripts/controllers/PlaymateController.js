@@ -40,7 +40,8 @@ angular.module('myApp').controller('PlaymateController', [
           gender: $scope.genderIn,
           sterile: $scope.sterileIn,
           vaccinated: $scope.vaccinatedIn,
-          location: resp.data.location
+          location: resp.data.location,
+          size: $scope.sizeIn
         };
         console.log('sending to server:', playmateToSend);
         // post method to send input data to database
@@ -58,6 +59,7 @@ angular.module('myApp').controller('PlaymateController', [
         $scope.genderIn = '';
         $scope.sterileIn = '';
         $scope.vaccinatedIn = '';
+        $scope.sizeIn = '';
 
         console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
         // getImages();

@@ -20,13 +20,13 @@ var connectionString = require('../modules/connection');
 
 // post route to insert new playmate into the database
 router.post('/addPlaymate', function (req, res){
-  console.log('in addPlaymate server post route, run:', req.body.name);
+  console.log('in addPlaymate server post route, adding:', req.body.name);
   pg.connect(connectionString, function(err, client, done){
     if(err){
       console.log(err);
     } else {
-      var sendPlaymate = client.query('INSERT INTO playmates (name, breed, age, gender, sterile, vaccinated, location) VALUES ($1, $2, $3, $4, $5, $6, $7)',
-        [req.body.name, req.body.breed, req.body.age, req.body.gender, req.body.sterile, req.body.vaccinated, req.body.location]);
+      var sendPlaymate = client.query('INSERT INTO playmates (name, breed, age, gender, sterile, vaccinated, location, size) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
+        [req.body.name, req.body.breed, req.body.age, req.body.gender, req.body.sterile, req.body.vaccinated, req.body.location, req.body.size]);
       sendPlaymate.on('end', function(){
         return res.end();
       });

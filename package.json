@@ -12,6 +12,7 @@
   "dependencies": {
     "aws-sdk": "^2.4.6",
     "body-parser": "^1.15.2",
+    "checklist-model": "^0.10.0",
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
     "lodash": "^4.13.1",
