@@ -1,8 +1,10 @@
 <h1>Show Playmates</h1>
 
 <div ng-repeat="playmate in allPlaymates">
+  <div class="playmate-profile">
+    <img ng-src="{{ playmate.location }}">
+  </div>
   <p>
-
     {{ playmate.name }},
     {{ playmate.breed }},
     {{ playmate.age }},

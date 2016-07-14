@@ -10,43 +10,79 @@ angular.module('myApp').controller('PlaymateController', [
     $scope.favePlaymates = [];
 
     ////////////////////////////////////////////////////////////
-    //            ADDING & DELETING NEW PLAYMATES             //
+    //  ADDING NEW PLAYMATE, IMAGES & POST METHOD TO SERVER   //
     ////////////////////////////////////////////////////////////
 
-    // collect data for new playmate and send to server
-    $scope.addPlaymate = function(){
-      event.preventDefault();
-      console.log('addPlaymate button clicked');
+    // upload image on submit
+    $scope.submit = function() {
+      if ($scope.form.file.$valid && $scope.file) {
+          $scope.upload($scope.file);
+          console.log('in submit function, file to upload:', $scope.file);
+      }
+    }; // end submit function
 
-      // get the input and store in object
-      var playmateToSend = {
-        name: $scope.nameIn,
-        breed: $scope.breedIn,
-        age: $scope.ageIn,
-        gender: $scope.genderIn,
-        sterile: $scope.sterileIn,
-        vaccinated: $scope.vaccinatedIn
-      }; // end playmateToSend
+    // upload image to aws and input data to database
+    $scope.upload = function(file) {
+      Upload.upload ({
+        url: '/uploads',
+        data: {
+          file: file,
+          'user': $scope.user,
+          'comment': $scope.comment
+        } // end data
+      }).then(function(resp) {
+        console.log('in then success block, upload method:', resp.data.location);
+        // collect user input to send to database
+        var playmateToSend = {
+          name: $scope.nameIn,
+          breed: $scope.breedIn,
+          age: $scope.ageIn,
+          gender: $scope.genderIn,
+          sterile: $scope.sterileIn,
+          vaccinated: $scope.vaccinatedIn,
+          location: resp.data.location
+        };
+        console.log('sending to server:', playmateToSend);
+        // post method to send input data to database
+        $http({
+          method: 'POST',
+          url: '/addPlaymate',
+          data: playmateToSend
+        }).then(function() {
+          $scope.displayPlaymates();
+        });
+        // clears out our input
+        $scope.nameIn = '';
+        $scope.breedIn = '';
+        $scope.ageIn = '';
+        $scope.genderIn = '';
+        $scope.sterileIn = '';
+        $scope.vaccinatedIn = '';
 
-      console.log('sending to server:', playmateToSend);
-
-      // post route to send new data to server
-      $http({
-        method: 'POST',
-        url: '/addPlaymate',
-        data: playmateToSend
-      }).then(function() {
+        console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+        // getImages();
         $scope.displayPlaymates();
-      }); // end post route
+      }, function(resp) {
+          console.log('Error status: ' + resp.status);
+      }, function(evt) {
+          var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+          console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+      });
+    }; // end upload function
 
-      // clears input fields
-      $scope.nameIn = '';
-      $scope.breedIn = '';
-      $scope.ageIn = '';
-      $scope.genderIn = '';
-      $scope.sterileIn = '';
-      $scope.vaccinatedIn = '';
-    }; // end addPlaymate
+    ////////////////////////////////////////////////////////////
+    //  DISPLAYING PLAYMATE, IMAGES & GET METHODS TO SERVER   //
+    ////////////////////////////////////////////////////////////
+
+    // loads page with images, DO I NEED THIS GET METHOD???
+    // function getImages() {
+    //   $http.get('/uploads')
+    //   .then(function(response) {
+    //       $scope.uploads = response.data;
+    //       console.log('GET /uploads ', response.data);
+    //   });
+    // } // end getImages
+
 
     // get route to retrieve data from server to display
     $scope.displayPlaymates = function() {
@@ -121,44 +157,12 @@ angular.module('myApp').controller('PlaymateController', [
       });
     }; // end removeFave
 
-    ////////////////////////////////////////////////////////////
-    //               IMAGE UPLOADING FUNCTIONS                //
-    ////////////////////////////////////////////////////////////
 
-    $scope.submit = function() {
-      if ($scope.form.file.$valid && $scope.file) {
-          $scope.upload($scope.file);
-          console.log('file', $scope.file);
-      }
-    }; // end submit
 
-    // loads page with images
-    function getImages() {
-      $http.get('/uploads')
-      .then(function(response) {
-          $scope.uploads = response.data;
-          console.log('GET /uploads ', response.data);
-      });
-    } // end getImages
 
-    $scope.upload = function(file) {
-      Upload.upload ({
-        url: '/uploads',
-        data: {
-          file: file,
-          'user': $scope.user,
-          'comment': $scope.comment
-        } // end data
-      }).then(function(resp) {
-          console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
-          getImages();
-      }, function(resp) {
-          console.log('Error status: ' + resp.status);
-      }, function(evt) {
-          var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-          console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-      });
-  }; // end upload function
+
+
+
 
 
 

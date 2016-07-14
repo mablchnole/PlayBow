@@ -25,8 +25,8 @@ router.post('/addPlaymate', function (req, res){
     if(err){
       console.log(err);
     } else {
-      var sendPlaymate = client.query('INSERT INTO playmates (name, breed, age, gender, sterile, vaccinated) VALUES ($1, $2, $3, $4, $5, $6)',
-        [req.body.name, req.body.breed, req.body.age, req.body.gender, req.body.sterile, req.body.vaccinated]);
+      var sendPlaymate = client.query('INSERT INTO playmates (name, breed, age, gender, sterile, vaccinated, location) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+        [req.body.name, req.body.breed, req.body.age, req.body.gender, req.body.sterile, req.body.vaccinated, req.body.location]);
       sendPlaymate.on('end', function(){
         return res.end();
       });
@@ -65,8 +65,9 @@ router.post('/addFave', function (req, res){
     if(err){
       console.log(err);
     } else {
-      var sendFave = client.query('INSERT INTO favorites (name, breed, age, gender, sterile, vaccinated) VALUES ($1, $2, $3, $4, $5, $6)',
-        [req.body.name, req.body.breed, req.body.age, req.body.gender, req.body.sterile, req.body.vaccinated]);
+      var sendFave = client.query('INSERT INTO favorites (name, breed, age, gender, sterile, vaccinated, location) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+        [req.body.name, req.body.breed, req.body.age, req.body.gender, req.body.sterile, req.body.vaccinated, req.body.location]);
+
       sendFave.on('end', function(){
         return res.end();
       });
@@ -131,10 +132,12 @@ var upload = multer({
 
 // upload post route
 router.post('/uploads', upload.single('file'), function(req, res) {
-  res.send('success');
+  console.log('in post uploads:', req.file);
+  res.send(req.file);
 });
 
 // get uploads
+
 
 
 
