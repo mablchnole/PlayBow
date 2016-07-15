@@ -1,16 +1,17 @@
-<h1>Show Playmates</h1>
+<div class="container">
+  <div class="jumbotron">
+    <h1>Playmates</h1>
+  </div>
 
-<form class="inline">
-  <input ng-model="query" type="text"
-    placeholder="Filter by" autofocus>
-</form>
+  <form class="inline">
+    <input ng-model="query" type="text"
+      placeholder="Filter by " autofocus>
+      Cheerleaders
+      Body Slammers
+  </form>
 
-<ul ng-repeat="playmate in allPlaymates | filter:query | orderBy: 'playstyles'">
-  <li class="playmate-profile">
-    <img class="img-square img-responsive"
-      ng-src="{{ playmate.location }}">
-  </li>
-
+  <ul ng-repeat="playmate in allPlaymates | filter:query | orderBy: 'playstyles'">
+    <li class="playmate-profile"><img class="img-square img-responsive" ng-src="{{ playmate.location }}"></li>
     <li>{{ playmate.name }}</li>
     <li>{{ playmate.breed }}</li>
     <li>{{ playmate.age }}</li>
@@ -22,5 +23,5 @@
     <li>{{ playmate.playstyles }}</li>
     <li><button type="button" ng-click="addFave($index)">Add to Faves</button></li>
     <li><button type="button" ng-click="schedulePlaydate($index)">Schedule Playdate</button></li>
-
-</ul>
+  </ul>
+</div>
