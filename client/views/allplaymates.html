@@ -6,8 +6,6 @@
   <form class="inline">
     <input ng-model="query" type="text"
       placeholder="Filter by " autofocus>
-      Cheerleaders
-      Body Slammers
   </form>
 
   <ul ng-repeat="playmate in allPlaymates | filter:query | orderBy: 'playstyles'">
