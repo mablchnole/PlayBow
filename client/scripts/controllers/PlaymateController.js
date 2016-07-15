@@ -5,10 +5,8 @@ angular.module('myApp').controller('PlaymateController', [
   '$location',
   'Upload',
   function($scope, $http, $window, $location, Upload) {
-    console.log('paws on PlaymateController');
     $scope.allPlaymates = [];
     $scope.favePlaymates = [];
-    // $scope.playstyles = ['chaser', 'cheerleader'];
     $scope.playstyles = [];
 
     ////////////////////////////////////////////////////////////
@@ -57,32 +55,28 @@ angular.module('myApp').controller('PlaymateController', [
           $scope.displayPlaymates();
         });
 
+        // function to bind list of checkbox options and push to one array
+        $scope.add = function(value) {
+          if (!angular.isArray($scope.playstyles)) {
+            $scope.playstyles = [];
+          }
+          if (-1 === $scope.playstyles.indexOf(value)) {
+            $scope.playstyles.push(value);
+            console.log('checkbox function array:', $scope.playstyles);
+          }
+        }; // end add function
+        // not currently using this but may want to in the future
+        $scope.remove = function(value) {
+          if (!angular.isArray($scope.playstyles)) {
+            return;
+          }
+          var index = $scope.playstyles.indexOf(value);
+          if (-1 !== index) {
+            $scope.playstyles.splice(index, 1);
+          }
+        }; // end remove function
 
-        $scope.add = function(value){
-            if (!angular.isArray($scope.playstyles)){
-              $scope.playstyles = [];
-            }
-            if (-1 === $scope.playstyles.indexOf(value)){
-              $scope.playstyles.push(value);
-              console.log('checkbox function array:', $scope.playstyles);
-            }
-          };
-          $scope.remove = function(value){
-            if (!angular.isArray($scope.playstyles)) {
-              return;
-            }
-            var index = $scope.playstyles.indexOf(value);
-            if (-1 !== index) {
-              $scope.playstyles.splice(index, 1);
-            }
-          };
-
-
-
-
-
-
-        // clears out our input
+        // clears out our input fields
         $scope.nameIn = '';
         $scope.breedIn = '';
         $scope.ageIn = '';
@@ -92,7 +86,6 @@ angular.module('myApp').controller('PlaymateController', [
         $scope.sizeIn = '';
 
         console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
-        // getImages();
         $scope.displayPlaymates();
       }, function(resp) {
           console.log('Error status: ' + resp.status);
@@ -106,17 +99,7 @@ angular.module('myApp').controller('PlaymateController', [
     //  DISPLAYING PLAYMATE, IMAGES & GET METHODS TO SERVER   //
     ////////////////////////////////////////////////////////////
 
-    // loads page with images, DO I NEED THIS GET METHOD???
-    // function getImages() {
-    //   $http.get('/uploads')
-    //   .then(function(response) {
-    //       $scope.uploads = response.data;
-    //       console.log('GET /uploads ', response.data);
-    //   });
-    // } // end getImages
-
-
-    // get route to retrieve data from server to display
+    // get method to retrieve data from server to display
     $scope.displayPlaymates = function() {
       // retrieve data from server
       $http({
@@ -148,7 +131,7 @@ angular.module('myApp').controller('PlaymateController', [
         location: $scope.allPlaymates[index].location
       };
       console.log('sending fave to server:', faveToSend);
-      // post route to send fave to server
+      // post method to send fave to server
       $http({
         method: 'POST',
         url: '/addFave',
@@ -158,9 +141,9 @@ angular.module('myApp').controller('PlaymateController', [
       }); // end post route
     }; // end addFave
 
-    // get route to retrieve faves from server to display
+    // retrieve faves from server to display
     $scope.displayFaves = function() {
-      // retrieve data from server
+      // get method to retrieve faves
       $http({
         method: 'GET',
         url: '/getFaves'
@@ -173,7 +156,7 @@ angular.module('myApp').controller('PlaymateController', [
     }; // end displayPlaymates
     $scope.displayFaves();
 
-    // remove fave from fave list
+    // delete fave from list and database
     $scope.removeFave = function(faveId) {
       var idToSend = {
         id: faveId
@@ -189,13 +172,6 @@ angular.module('myApp').controller('PlaymateController', [
         console.log('back from server in removeFave');
       });
     }; // end removeFave
-
-
-
-
-
-
-
 
 
 
