@@ -10,6 +10,16 @@ angular.module('myApp').controller('PlaymateController', [
     $scope.favePlaymates = [];
     $scope.playstyles = [];
 
+    // filter all playmates based on select values
+    $scope.playstyleTypes = [
+      {"id":0,"name":'All'},
+      {"id":1,"name":'Cheerleaders'},
+      {"id":2,"name":'Wrestlers'},
+      {"id":3,"name":'Chasers'}
+    ];
+
+
+
     ////////////////////////////////////////////////////////////
     //  ADDING NEW PLAYMATE, IMAGES & POST METHOD TO SERVER   //
     ////////////////////////////////////////////////////////////

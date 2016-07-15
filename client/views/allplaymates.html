@@ -1,20 +1,29 @@
-<h1>Show Playmates</h1>
-
-<div ng-repeat="playmate in allPlaymates">
-  <div class="playmate-profile">
-    <img class="img-square img-responsive" ng-src="{{ playmate.location }}">
+<div class="container">
+  <div class="jumbotron">
+    <h1>All Playmates</h1>
   </div>
-  <p>
-    {{ playmate.name }},
-    {{ playmate.breed }},
-    {{ playmate.age }},
-    {{ playmate.gender }},
-    {{ playmate.sterile }},
-    {{ playmate.vaccinated }}
-    {{ playmate.size }}
-    {{ playmate.bio }}
-    {{ playmate.playstyles }}
-    <button type="button" ng-click="addFave($index)">Add to Faves</button>
-    <button type="button" ng-click="schedulePlaydate($index)">Schedule Playdate</button>
-  </p>
+
+  <select name="show-filter" ng-model="playstyleFilter"
+    ng-options="type as type.name for type in playstyleTypes">
+  </select>
+
+  <div ng-repeat="playmate in allPlaymates | filter : {id: playstyleFilter.id}: true">
+
+    <div class="playmate-profile">
+      <img class="img-square img-responsive" ng-src="{{ playmate.location }}">
+    </div>
+    <p>
+      {{ playmate.name }},
+      {{ playmate.breed }},
+      {{ playmate.age }},
+      {{ playmate.gender }},
+      {{ playmate.sterile }},
+      {{ playmate.vaccinated }}
+      {{ playmate.size }}
+      {{ playmate.bio }}
+      {{ playmate.playstyles }}
+      <button type="button" ng-click="addFave($index)">Add to Faves</button>
+      <button type="button" ng-click="schedulePlaydate($index)">Schedule Playdate</button>
+    </p>
+  </div>
 </div>
