@@ -11,15 +11,15 @@ var bodyParser = require('body-parser');
 app.use(express.static('client'));
 
 // middleware
-// app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 // include routes
 var playmate = require('./routes/playmate');
+var profile = require('./routes/profile');
 
 // use routes
 app.use('/', playmate);
-
+app.use('/', profile);
 
 // base url to show path resolved index.html
 app.get('/', function(req, res){

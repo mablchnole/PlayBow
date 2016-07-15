@@ -88,7 +88,7 @@ angular.module('myApp').controller('PlaymateController', [
 
         console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
         // $scope.displayPlaymates();
-        $location.path('/playmateprofile');
+        $location.path('/profile');
       }, function(resp) {
           console.log('Error status: ' + resp.status);
       }, function(evt) {
