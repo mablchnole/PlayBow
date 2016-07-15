@@ -27,21 +27,36 @@ angular.module('myApp').controller('ProfileController', [
     }; // end displayProfile
     $scope.displayProfile();
 
-    // post method to send playmate's playstyles to find matches
+    // get method to retrieve matching playmate's playstyles
     $scope.displayMatches = function() {
-      // collect user input to send to database
-      var playstylesToSend = {
-        playstyle1: response.data[0].breed
-      };
-      console.log('sending to server:', playstylesToSend);
-      // post method to send input data to database
       $http({
-        method: 'POST',
-        url: '/sendPlaystyles',
-        data: playstylesToSend
-      }).then(function() {
-        $scope.displayMatches();
-      }); // end post method
-    }; // end displayMatches
+        method: 'GET',
+        url: '/getMatches'
+      }).then(function(response) {
+        $rootScope.playmateProfile = response.data;
+        console.log('SUCCESS, awesome matches:', response.data);
+      }, function myError (response) {
+        console.log(response.statusText);
+      });
+    }; // end displayProfile
+    $scope.displayMatches();
+
+
+    // post method to send playmate's playstyles to find matches
+    // $scope.displayMatches = function() {
+    //   // collect user input to send to database
+    //   var playstylesToSend = {
+    //     playstyle1: response.data[0].breed
+    //   };
+    //   console.log('sending to server:', playstylesToSend);
+    //   // post method to send input data to database
+    //   $http({
+    //     method: 'POST',
+    //     url: '/sendPlaystyles',
+    //     data: playstylesToSend
+    //   }).then(function() {
+    //     $scope.displayMatches();
+    //   }); // end post method
+    // }; // end displayMatches
 
 }]);

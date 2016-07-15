@@ -30,26 +30,46 @@ router.get('/getNewest', function(req, res) {
 }); // end getProfile route
 
 ////////////////////////////////////////////////////////////
-//               ROUTE TO MATCH PLAYSTYLES                //
+//               ROUTE TO RETRIEVE MATCHES                //
 ////////////////////////////////////////////////////////////
 
-// post route to insert fave into the database
-router.post('/sendPlaystyles', function (req, res){
-  console.log('in sendPlaystyles post route, run:', req.body.playstyles);
-  pg.connect(connectionString, function(err, client, done){
-    if(err){
+router.get('/getMatches', function(req, res) {
+  var results = [];
+  pg.connect(connectionString, function(err, client, done) {
+    // i want to select all from playmates where any playstyles of the 3 entered matches
+    var callDatabase = client.query('SELECT * FROM playmates WHERE playstyles = "Chasers";');
+    // push each row in query into our results array
+    callDatabase.on('row', function(row) {
+      results.push(row);
+    }); // end query push
+    callDatabase.on('end', function(){
+      console.log('matches for playstyles:', results);
+      return res.json(results);
+    });
+    if(err) {
       console.log(err);
-    } else {
-      // not sure how to query
-      var matchPlaystyles = client.query('SELECT * FROM favorites WHERE (playstyles) = VALUES ($1)',
-        [req.body.playstyles]);
-
-      matchPlaystyles.on('end', function() {
-        return res.end();
-      });
     }
-    done();
-  });
-}); // end addFave route
+  }); // end pg connect
+});
+
+
+// post route to insert fave into the database
+// router.post('/sendPlaystyles', function (req, res){
+//   console.log('in sendPlaystyles post route, run:', req.body.playstyles);
+//   pg.connect(connectionString, function(err, client, done){
+//     if(err){
+//       console.log(err);
+//     } else {
+//       // not sure how to query
+//       var matchPlaystyles = client.query('SELECT * FROM favorites WHERE (playstyles) = VALUES ($1)',
+//         [req.body.playstyles]);
+//
+//       matchPlaystyles.on('end', function() {
+//         return res.end();
+//       });
+//     }
+//     done();
+//   });
+// }); // end addFave route
 
 module.exports = router;
