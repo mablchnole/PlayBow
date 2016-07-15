@@ -175,7 +175,10 @@ angular.module('myApp').controller('PlaymateController', [
       });
     }; // end removeFave
 
-
+    // filter all playmates by playstyles
+    $scope.filterFunction = function(element) {
+      return element.name.match(/^Ma/) ? true : false;
+    };
 
 
 }]);

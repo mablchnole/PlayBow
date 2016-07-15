@@ -1,20 +1,26 @@
 <h1>Show Playmates</h1>
 
-<div ng-repeat="playmate in allPlaymates">
-  <div class="playmate-profile">
-    <img class="img-square img-responsive" ng-src="{{ playmate.location }}">
-  </div>
-  <p>
-    {{ playmate.name }},
-    {{ playmate.breed }},
-    {{ playmate.age }},
-    {{ playmate.gender }},
-    {{ playmate.sterile }},
-    {{ playmate.vaccinated }}
-    {{ playmate.size }}
-    {{ playmate.bio }}
-    {{ playmate.playstyles }}
-    <button type="button" ng-click="addFave($index)">Add to Faves</button>
-    <button type="button" ng-click="schedulePlaydate($index)">Schedule Playdate</button>
-  </p>
-</div>
+<form class="inline">
+  <input ng-model="query" type="text"
+    placeholder="Filter by" autofocus>
+</form>
+
+<ul ng-repeat="playmate in allPlaymates | filter:query | orderBy: 'playstyles'">
+  <li class="playmate-profile">
+    <img class="img-square img-responsive"
+      ng-src="{{ playmate.location }}">
+  </li>
+
+    <li>{{ playmate.name }}</li>
+    <li>{{ playmate.breed }}</li>
+    <li>{{ playmate.age }}</li>
+    <li>{{ playmate.gender }}</li>
+    <li>{{ playmate.sterile }}</li>
+    <li>{{ playmate.vaccinated }}</li></li>
+    <li>{{ playmate.size }}</li>
+    <li>{{ playmate.bio }}</li>
+    <li>{{ playmate.playstyles }}</li>
+    <li><button type="button" ng-click="addFave($index)">Add to Faves</button></li>
+    <li><button type="button" ng-click="schedulePlaydate($index)">Schedule Playdate</button></li>
+
+</ul>
