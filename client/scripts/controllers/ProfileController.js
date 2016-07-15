@@ -7,9 +7,10 @@ angular.module('myApp').controller('ProfileController', [
   'Upload',
   function($scope, $rootScope, $http, $window, $location, Upload) {
     $rootScope.playmateProfile = [];
-    console.log('inside of profileController, playmateProfile array:', $rootScope.playmateProfile);
+    $rootScope.playmateMatches = [];
+    console.log('trying to access playstyle array values:', $rootScope.playmateProfile);
 
-    // get method to retrieve newest playmate created from server
+    // retrieve newest playmate created from server
     $scope.displayProfile = function() {
       $http({
         method: 'GET',
@@ -22,5 +23,24 @@ angular.module('myApp').controller('ProfileController', [
       });
     }; // end displayProfile
     $scope.displayProfile();
+
+    // post method to send playmate's playstyles to find matches
+    $scope.displayMatches = function() {
+      // collect user input to send to database
+      var playstylesToSend = {
+        // playstyles: response.data.playstyles ? How do I access these values???
+        playstyles: 'Chaser' // hardcode to test route
+      };
+
+      console.log('sending to server:', playstylesToSend);
+      // post method to send input data to database
+      $http({
+        method: 'POST',
+        url: '/sendPlaystyles',
+        data: playstylesToSend
+      }).then(function() {
+        $scope.displayMatches();
+      }); // end post method
+    }; // end displayMatches
 
 }]);

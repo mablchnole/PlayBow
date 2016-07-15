@@ -1,7 +1,9 @@
-<h1>favorites</h1>
+<div class="container">
+  <div class="jumbotron">
+    <h1> Favorites </h1>
+  </div>
 
-<div ng-repeat="fave in favePlaymates">
-  <div class="playmate-profile">
+  <div class="playmate-profile" ng-repeat="fave in favePlaymates">
     <img class="img-square img-responsive" ng-src="{{ fave.location }}">
   </div>
   <p>
@@ -16,4 +18,5 @@
     {{ fave.playstyles }}
     <button type="button" name="button" ng-click="removeFave(fave.id)">Remove Fave</button>
   </p>
+
 </div>

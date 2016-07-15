@@ -54,7 +54,7 @@ angular.module('myApp').controller('PlaymateController', [
           data: playmateToSend
         }).then(function() {
           $scope.displayPlaymates();
-        });
+        }); // end post method
 
         // function to bind list of checkbox options and push to one array
         $scope.add = function(value) {
