@@ -7,7 +7,7 @@ var myApp = angular.module('myApp', [
 myApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
     when('/home', {
-      templateUrl: '/views/home.html'
+      templateUrl: '/views/home.html',
     }).
     when('/addplaymate', {
       templateUrl: '/views/addplaymate.html',
@@ -15,6 +15,10 @@ myApp.config(['$routeProvider', function($routeProvider) {
     }).
     when('/showplaymates', {
       templateUrl: '/views/showplaymates.html',
+      controller: 'PlaymateController'
+    }).
+    when('/playmateprofile', {
+      templateUrl: '/views/playmateprofile.html',
       controller: 'PlaymateController'
     }).
     when('/favorites', {

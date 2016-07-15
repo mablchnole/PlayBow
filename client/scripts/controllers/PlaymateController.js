@@ -1,11 +1,12 @@
 angular.module('myApp').controller('PlaymateController', [
   '$scope',
+  '$rootScope',
   '$http',
   '$window',
   '$location',
   'Upload',
-  function($scope, $http, $window, $location, Upload) {
-    $scope.allPlaymates = [];
+  function($scope, $rootScope, $http, $window, $location, Upload) {
+    $rootScope.allPlaymates = [];
     $scope.favePlaymates = [];
     $scope.playstyles = [];
 
@@ -86,7 +87,8 @@ angular.module('myApp').controller('PlaymateController', [
         $scope.sizeIn = '';
 
         console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
-        $scope.displayPlaymates();
+        // $scope.displayPlaymates();
+        $location.path('/playmateprofile');
       }, function(resp) {
           console.log('Error status: ' + resp.status);
       }, function(evt) {
@@ -106,7 +108,7 @@ angular.module('myApp').controller('PlaymateController', [
         method: 'GET',
         url: '/getPlaymates'
       }).then(function(response) {
-        $scope.allPlaymates = response.data;
+        $rootScope.allPlaymates = response.data;
         console.log('so many new furiends!', response.data);
       }, function myError (response) {
         console.log(response.statusText);
@@ -122,12 +124,12 @@ angular.module('myApp').controller('PlaymateController', [
     $scope.addFave = function(index){
       console.log('addFave button clicked');
       var faveToSend = {
-        name: $scope.allPlaymates[index].name,
-        breed: $scope.allPlaymates[index].breed,
-        age: $scope.allPlaymates[index].age,
-        gender: $scope.allPlaymates[index].gender,
-        sterile: $scope.allPlaymates[index].sterile,
-        vaccinated: $scope.allPlaymates[index].vaccinated,
+        name: $rootScope.allPlaymates[index].name,
+        breed: $rootScope.allPlaymates[index].breed,
+        age: $rootScope.allPlaymates[index].age,
+        gender: $rootScope.allPlaymates[index].gender,
+        sterile: $rootScope.allPlaymates[index].sterile,
+        vaccinated: $rootScope.allPlaymates[index].vaccinated,
         location: $scope.allPlaymates[index].location
       };
       console.log('sending fave to server:', faveToSend);
