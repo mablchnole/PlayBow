@@ -8,17 +8,7 @@ angular.module('myApp').controller('PlaymateController', [
   function($scope, $rootScope, $http, $window, $location, Upload) {
     $rootScope.allPlaymates = [];
     $scope.favePlaymates = [];
-    $scope.playstyles = [];
-
-    // filter all playmates based on select values
-    $scope.playstyleTypes = [
-      {"id":0,"name":'All'},
-      {"id":1,"name":'Cheerleaders'},
-      {"id":2,"name":'Wrestlers'},
-      {"id":3,"name":'Chasers'}
-    ];
-
-
+    $rootScope.playstyles = [];
 
     ////////////////////////////////////////////////////////////
     //  ADDING NEW PLAYMATE, IMAGES & POST METHOD TO SERVER   //
@@ -68,22 +58,22 @@ angular.module('myApp').controller('PlaymateController', [
 
         // function to bind list of checkbox options and push to one array
         $scope.add = function(value) {
-          if (!angular.isArray($scope.playstyles)) {
-            $scope.playstyles = [];
+          if (!angular.isArray($rootScope.playstyles)) {
+            $rootScope.playstyles = [];
           }
-          if (-1 === $scope.playstyles.indexOf(value)) {
-            $scope.playstyles.push(value);
-            console.log('checkbox function array:', $scope.playstyles);
+          if (-1 === $rootScope.playstyles.indexOf(value)) {
+            $rootScope.playstyles.push(value);
+            console.log('checkbox function array:', $rootScope.playstyles);
           }
         }; // end add function
         // not currently using this but may want to in the future
         $scope.remove = function(value) {
-          if (!angular.isArray($scope.playstyles)) {
+          if (!angular.isArray($rootScope.playstyles)) {
             return;
           }
-          var index = $scope.playstyles.indexOf(value);
+          var index = $rootScope.playstyles.indexOf(value);
           if (-1 !== index) {
-            $scope.playstyles.splice(index, 1);
+            $rootScope.playstyles.splice(index, 1);
           }
         }; // end remove function
 
@@ -120,6 +110,44 @@ angular.module('myApp').controller('PlaymateController', [
       }).then(function(response) {
         $rootScope.allPlaymates = response.data;
         console.log('so many new furiends!', response.data);
+
+        // filter all playmates based on select values
+        $scope.playstyleOptions = {
+          categories: [
+            {"id":2,"name":'All', type: 'all'},
+            {"id":3,"name":'Cheerleaders', type: 'cheerleaders'},
+            {"id":4,"name":'Body Slammers', type: 'bodyslammers'},
+            {"id":5,"name":'Wrestlers', type: 'wrestlers'},
+            {"id":6,"name":'Chasers', type: 'chasers'},
+            {"id":7,"name":'Tuggers', type: 'tuggers'},
+            {"id":8,"name": 'Soft Touchers', type: 'softtouchers'},
+            {"id":9,"name": 'Adaptive', type: 'adaptive'}
+          ]
+        };
+
+        // map to the model to filter
+        $scope.filterStyle = {
+          style: $scope.playstyleOptions.categories[0]
+        };
+
+        // console.log('playstyle', $scope.allPlaymates[0].playstyles[0], $scope.allPlaymates[0].playstyles[1], $scope.allPlaymates[0].playstyles[2]);
+        // console.log('filter - style1:', $scope.filterStyle.style1.type, 'style2: ', $scope.filterStyle.style2.type);
+
+        console.log('if:', $scope.allPlaymates[0].playstyles[0], 'is equal to', $scope.filterStyle.style.type);
+        // custom filter
+        $scope.customFilter = function() {
+          if($scope.allPlaymates[0].playstyles[0] === $scope.filterStyle.style.type || $scope.allPlaymates[0].playstyles[1] === $scope.filterStyle.style.type || $scope.allPlaymates[0].playstyles[2] === $scope.filterStyle.style.type) {
+            return true;
+          } else if ($scope.filterStyle.style.type === 'all') {
+            return true;
+          } else {
+            return false;
+          }
+        };
+
+        // filter based on id
+        console.log('all my friends to filter:', $rootScope.allPlaymates);
+
       }, function myError (response) {
         console.log(response.statusText);
       });
@@ -168,6 +196,7 @@ angular.module('myApp').controller('PlaymateController', [
     }; // end displayPlaymates
     $scope.displayFaves();
 
+
     // delete fave from list and database
     $scope.removeFave = function(faveId) {
       var idToSend = {
@@ -184,6 +213,7 @@ angular.module('myApp').controller('PlaymateController', [
         console.log('back from server in removeFave');
       });
     }; // end removeFave
+
 
 
 

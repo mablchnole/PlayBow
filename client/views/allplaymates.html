@@ -3,11 +3,11 @@
     <h1>All Playmates</h1>
   </div>
 
-  <select name="show-filter" ng-model="playstyleFilter"
-    ng-options="type as type.name for type in playstyleTypes">
+  <select name="show-filter" ng-model="filterStyle.style"
+    ng-options="item.name for item in playstyleOptions.categories">
   </select>
 
-  <div ng-repeat="playmate in allPlaymates | filter : {id: playstyleFilter.id}: true">
+  <div ng-repeat="playmate in allPlaymates | filter : customFilter">
 
     <div class="playmate-profile">
       <img class="img-square img-responsive" ng-src="{{ playmate.location }}">
