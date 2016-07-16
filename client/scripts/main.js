@@ -23,6 +23,7 @@ myApp.config(['$routeProvider', function($routeProvider) {
     }).
     when('/matches', {
       templateUrl: '/views/matches.html',
+      controller: 'ProfileController'
     }).
     when('/favorites', {
       templateUrl: '/views/favorites.html',
