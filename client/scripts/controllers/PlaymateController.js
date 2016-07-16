@@ -5,10 +5,16 @@ angular.module('myApp').controller('PlaymateController', [
   '$window',
   '$location',
   'Upload',
-  function($scope, $rootScope, $http, $window, $location, Upload) {
+  function($scope, $rootScope, $http, $window, $location, Upload, $filter) {
+
     $rootScope.allPlaymates = [];
     $scope.favePlaymates = [];
     $scope.playstyles = [];
+
+    // simple substring filter
+    $scope.customArrayFilter = function(item) {
+      return(item.playstyles.indexOf('it') != -1);
+    };
 
     ////////////////////////////////////////////////////////////
     //  ADDING NEW PLAYMATE, IMAGES & POST METHOD TO SERVER   //
@@ -175,10 +181,8 @@ angular.module('myApp').controller('PlaymateController', [
       });
     }; // end removeFave
 
-    // filter all playmates by playstyles
-    $scope.filterFunction = function(element) {
-      return element.name.match(/^Ma/) ? true : false;
-    };
+
+
 
 
 }]);

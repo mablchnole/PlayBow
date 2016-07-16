@@ -3,12 +3,9 @@
     <h1>Playmates</h1>
   </div>
 
-  <form class="inline">
-    <input ng-model="query" type="text"
-      placeholder="Filter by " autofocus>
-  </form>
+  <label>Filter: <input type="text" ng-model="simpleFilter" /></label><br />
 
-  <ul ng-repeat="playmate in allPlaymates | filter:query | orderBy: 'playstyles'">
+  <ul ng-repeat="playmate in allPlaymates | filter: simpleFilter">
     <li class="playmate-profile"><img class="img-square img-responsive" ng-src="{{ playmate.location }}"></li>
     <li>{{ playmate.name }}</li>
     <li>{{ playmate.breed }}</li>
