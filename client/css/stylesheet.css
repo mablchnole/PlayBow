@@ -25,7 +25,7 @@
 }
 
 .allplaymates {
-  background-color: #053E59;
+  background-color: #012635;
 }
 
 .ribbon {
@@ -55,6 +55,24 @@
 
 .action-icons {
   text-align: center;
+}
+
+.header-banner {
+}
+
+.header-banner h1 {
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #FCF1DD;
+  margin: 30px 0;
+}
+
+.filter {
+  margin: 15px 0 25px 0;
+  width: 80%;
+}
+
+.one-profile {
 }
 
 /*** HEADER ***/
@@ -97,7 +115,7 @@ header[role="banner"] {
 }
 
 .navbar-default .navbar-nav>li>a:hover {
-  background-color: #94CC4C;
+  background-color: #1abc9c;
   color: #FCF1DD
 }
 
@@ -137,7 +155,7 @@ header[role="banner"] {
 
 /*** BUTTONS ***/
 button {
-    background-color: #75AD34;
+    background-color: #1abc9c;
     border: none;
 
     text-align: center;

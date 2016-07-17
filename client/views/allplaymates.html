@@ -1,10 +1,9 @@
 <div class="container-fluid allplaymates">
   <div class="container">
-    <h1>All Playmates</h1>
-    <div class="row">
-      <label>Filter: <input type="text" ng-model="simpleFilter" /></label><br />
+    <div class="header-banner">
+      <h1>All Playmates</h1>
+      <label class="filter"><input class="filter form control" type="text" ng-model="simpleFilter" placeholder="Search by Keyword"/></label><br />
     </div>
-
     <div class="row">
       <div class="col-sm-6 col-md-4" ng-repeat="playmate in allPlaymates | filter: simpleFilter">
         <div class="thumbnail">
@@ -34,22 +33,3 @@
     </div>
   </div>
 </div>
-
-
-
-<!--
-  <ul ng-repeat="playmate in allPlaymates | filter: simpleFilter">
-    <li class="playmate-profile"><img class="img-square img-responsive" ng-src="{{ playmate.location }}"></li>
-    <li>{{ playmate.name }}</li>
-    <li>{{ playmate.breed }}</li>
-    <li>{{ playmate.age }}</li>
-    <li>{{ playmate.gender }}</li>
-    <li>{{ playmate.sterile }}</li>
-    <li>{{ playmate.vaccinated }}</li></li>
-    <li>{{ playmate.size }}</li>
-    <li>{{ playmate.bio }}</li>
-    <li>{{ playmate.playstyles }}</li>
-    <li><button type="button" ng-click="addFave($index)">Add to Faves</button></li>
-    <li><button type="button" ng-click="schedulePlaydate($index)">Schedule Playdate</button></li>
-  </ul>
-</div> -->

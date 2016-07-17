@@ -138,7 +138,7 @@ angular.module('myApp').controller('PlaymateController', [
     $scope.schedulePlaydate = function(index) {
       // email contact
       $scope.Subject = "PlayBow - Playdate Request";
-      $scope.bodyText = "Hi" + " " + $rootScope.allPlaymates[index].name + "! We found you on PlayBow and would like to schedule a playmate playdate. Please let us know if you're interested. From: " + $rootScope.playmateProfile[0].name + ".";
+      $scope.bodyText = "Hi" + " " + $rootScope.allPlaymates[index].name + "! We found you on PlayBow and would like to schedule a playdate. Please let us know if you're interested. From: " + $rootScope.playmateProfile[0].name + ".";
       $scope.mailLink = "mailto:" + $rootScope.allPlaymates[index].email + "?subject=" + $scope.Subject + '&body=' + $scope.bodyText;
 
     };
@@ -219,8 +219,5 @@ angular.module('myApp').controller('PlaymateController', [
       });
     }; // end displayProfile
     $scope.displayProfile();
-
-
-
 
 }]);
