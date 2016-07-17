@@ -45,6 +45,7 @@ angular.module('myApp').controller('PlaymateController', [
           name: $scope.nameIn,
           breed: $scope.breedIn,
           age: $scope.ageIn,
+          bio: $scope.bioIn,
           gender: $scope.genderIn,
           sterile: $scope.sterileIn,
           vaccinated: $scope.vaccinatedIn,
@@ -87,6 +88,7 @@ angular.module('myApp').controller('PlaymateController', [
         $scope.nameIn = '';
         $scope.breedIn = '';
         $scope.ageIn = '';
+        $scope.bioIn = '';
         $scope.genderIn = '';
         $scope.sterileIn = '';
         $scope.vaccinatedIn = '';
@@ -133,6 +135,7 @@ angular.module('myApp').controller('PlaymateController', [
         name: $rootScope.allPlaymates[index].name,
         breed: $rootScope.allPlaymates[index].breed,
         age: $rootScope.allPlaymates[index].age,
+        age: $rootScope.allPlaymates[index].bio,
         gender: $rootScope.allPlaymates[index].gender,
         sterile: $rootScope.allPlaymates[index].sterile,
         vaccinated: $rootScope.allPlaymates[index].vaccinated,
