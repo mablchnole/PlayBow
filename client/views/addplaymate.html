@@ -21,7 +21,12 @@
                 </div>
 
                 <div class="form-group">
-                  <label class="sr-only" for="name">Name</label>
+                  <label class="sr-only" for="email">Email</label>
+                  <input type="email" autofocus="" name="email" class="form-control" ng-model="emailIn" placeholder="Email">
+                </div>
+
+                <div class="form-group">
+                  <label class="sr-only" for="name">Playmate's Name</label>
                   <input type="text" autofocus="" name="name" class="form-control" ng-model="nameIn" placeholder="Name">
                 </div>
 
@@ -36,17 +41,20 @@
                 </div>
 
                 <div class="form-group">
+                  <label class="sr-only" for="age">City</label>
+                  <input type="text" name="age" class="form-control" ng-model="cityIn" placeholder="City">
+                </div>
+
+                <div class="form-group">
                   <label class="sr-only" for="bio">Bio</label>
                   <textarea name="bio" class="form-control" ng-model="bioIn" placeholder="Bio"></textarea>
                 </div>
 
-
-
                 <div class="form-group">
                   <label class="sr-only" for="gender">Gender:</label>
                   <select id="gender" ng-model="genderIn">
-                    <option value="female">female</option>
-                    <option value="male">male</option>
+                    <option value="Female">female</option>
+                    <option value="Male">male</option>
                   </select>
                 </div>
 
@@ -89,32 +97,32 @@
                   <ul>
                     <li class="checkbox">
                       <label>
-                        <input type="checkbox" mt-checkbox="'Cheerleader'" />Cheerleaders
+                        <input type="checkbox" mt-checkbox="'Cheerleader'" />Cheerleader
                       </label>
                     </li>
                     <li class="checkbox">
                       <label>
-                        <input type="checkbox" mt-checkbox="'Body Slammer'" />Body Slammers
+                        <input type="checkbox" mt-checkbox="'Body Slammer'" />Body Slammer
                       </label>
                     </li>
                     <li class="checkbox">
                       <label>
-                        <input type="checkbox" mt-checkbox="'Wrestlers'" />Wrestlers
+                        <input type="checkbox" mt-checkbox="'Wrestler'" />Wrestler
                       </label>
                     </li>
                     <li class="checkbox">
                       <label>
-                        <input type="checkbox" mt-checkbox="'Chasers'" />Chasers
+                        <input type="checkbox" mt-checkbox="'Chaser'" />Chaser
                       </label>
                     </li>
                     <li class="checkbox">
                       <label>
-                        <input type="checkbox" mt-checkbox="'Tuggers'" />Tuggers
+                        <input type="checkbox" mt-checkbox="'Tugger'" />Tugger
                       </label>
                     </li>
                     <li class="checkbox">
                       <label>
-                        <input type="checkbox" mt-checkbox="'Soft Touchers'" />Soft Touchers
+                        <input type="checkbox" mt-checkbox="'Soft Toucher'" />Soft Toucher
                       </label>
                     </li>
                     <li class="checkbox">

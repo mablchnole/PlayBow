@@ -2,9 +2,11 @@ Database: PlayBow
 
 CREATE TABLE playmates (
   id SERIAL PRIMARY KEY NOT NULL,
+  email VARCHAR(100),
 	name VARCHAR(100),
   breed VARCHAR(100),
   age INTEGER,
+  city VARCHAR(100),
   gender VARCHAR(100),
   sterile VARCHAR(100),
   vaccinated VARCHAR(100),
@@ -17,9 +19,11 @@ CREATE TABLE playmates (
 
 CREATE TABLE favorites (
   id SERIAL PRIMARY KEY NOT NULL,
+  email VARCHAR(100),
 	name VARCHAR(100),
   breed VARCHAR(100),
   age INTEGER,
+  city VARCHAR(100),
   gender VARCHAR(100),
   sterile VARCHAR(100),
   vaccinated VARCHAR(100),

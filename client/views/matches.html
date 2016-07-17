@@ -1,27 +1,27 @@
 <div class="container">
-  <div class="jumbotron" ng-repeat="profile in playmateProfile">
-    <h1>Playmate Matches for {{ profile.name }}</h1>
+  <h1>Playmate Matches for {{ profile.name }}</h1>
+  <div class="row" ng-repeat="matches in playmateMatches">
+    <div class="col-sm-6 col-md-4">
+      <div class="thumbnail">
+        <img ng-src="{{ matches.location }}">
+        <div class="caption">
+          <h3>{{ matches.name }}</h3>
+          <p>
+            {{ matches.name }},
+            {{ matches.breed }},
+            {{ matches.age }},
+            {{ matches.gender }},
+            {{ matches.sterile }},
+            {{ matches.vaccinated }}
+            {{ matches.size }}
+            {{ matches.bio }}
+            {{ matches.playstyles[0] }}
+          </p>
+          <a href="#allplaymates"><button class="btn" type="button" name="button">Contact</button></a>
+          <a href="#allplaymates"><button class="btn" type="button" name="button">View All Playmates</button></a>
+          <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div ng-repeat="matches in playmateMatches">
-    <ul>
-      <li class="playmate-profile"><img class="img-square img-responsive" ng-src="{{ matches.location }}"></li>
-    </ul>
-    <p>
-      {{ matches.name }},
-      {{ matches.breed }},
-      {{ matches.age }},
-      {{ matches.gender }},
-      {{ matches.sterile }},
-      {{ matches.vaccinated }}
-      {{ matches.size }}
-      {{ matches.bio }}
-      {{ matches.playstyles }}
-    </p>
-
-
-  </div>
-  <a href="#allplaymates"><button class="btn" type="button" name="button">View All Playmates</button></a>
-
-
 </div>

@@ -1,4 +1,61 @@
+.thumbnail {
+  border: none;
+  padding: 0;
+}
 
+.thumbnail .caption {
+    padding: 0px 20px 20px 20px;
+    color: #053E59;
+}
+
+.caption h3 {
+  font-weight: bold;
+  color: #053E59;
+}
+
+.list-group-item {
+  border: none;
+  padding: 4px 0;
+  font-size: 14px;
+  color: #848484;
+}
+
+.list-group-item span {
+  color: #eee;
+}
+
+.allplaymates {
+  background-color: #053E59;
+}
+
+.ribbon {
+  display: inline-block;
+  position: absolute;
+  top: 0px;
+  background-color: #ED4C80;
+  padding: 8px 10px;
+  z-index: 99;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 16px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.fa {
+  color: #ED4C80;
+  font-size: 24px;
+}
+
+.fa {
+  color: #ED4C80;
+  font-size: 24px;
+}
+
+.action-icons {
+  text-align: center;
+}
 
 /*** HEADER ***/
 .header {

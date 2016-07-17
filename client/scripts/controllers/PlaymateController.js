@@ -6,15 +6,19 @@ angular.module('myApp').controller('PlaymateController', [
   '$location',
   'Upload',
   function($scope, $rootScope, $http, $window, $location, Upload, $filter) {
-
+    $rootScope.playmateProfile = [];
     $rootScope.allPlaymates = [];
     $scope.favePlaymates = [];
     $scope.playstyles = [];
+    $rootScope.playmateMatches = [];
 
     // simple substring filter
     $scope.customArrayFilter = function(item) {
       return(item.playstyles.indexOf('it') != -1);
     };
+
+
+
 
     ////////////////////////////////////////////////////////////
     //  ADDING NEW PLAYMATE, IMAGES & POST METHOD TO SERVER   //
@@ -42,9 +46,11 @@ angular.module('myApp').controller('PlaymateController', [
 
         // collect user input to send to database
         var playmateToSend = {
+          email: $scope.emailIn,
           name: $scope.nameIn,
           breed: $scope.breedIn,
           age: $scope.ageIn,
+          city: $scope.cityIn,
           bio: $scope.bioIn,
           gender: $scope.genderIn,
           sterile: $scope.sterileIn,
@@ -85,6 +91,7 @@ angular.module('myApp').controller('PlaymateController', [
         }; // end remove function
 
         // clears out our input fields
+        $scope.emailIn = '';
         $scope.nameIn = '';
         $scope.breedIn = '';
         $scope.ageIn = '';
@@ -128,19 +135,33 @@ angular.module('myApp').controller('PlaymateController', [
     //           ADDING & REMOVING FROM FAVES LIST            //
     ////////////////////////////////////////////////////////////
 
+    $scope.schedulePlaydate = function(index) {
+      // email contact
+      $scope.Subject = "PlayBow - Playdate Request";
+      $scope.bodyText = "Hi" + " " + $rootScope.allPlaymates[index].name + "! We found you on PlayBow and would like to schedule a playmate playdate. Please let us know if you're interested. From: " + $rootScope.playmateProfile[0].name + ".";
+      $scope.mailLink = "mailto:" + $rootScope.allPlaymates[index].email + "?subject=" + $scope.Subject + '&body=' + $scope.bodyText;
+
+    };
+
+
     // send selected favorites to the database
     $scope.addFave = function(index){
       console.log('addFave button clicked');
       var faveToSend = {
+        email: $rootScope.allPlaymates[index].email,
         name: $rootScope.allPlaymates[index].name,
         breed: $rootScope.allPlaymates[index].breed,
         age: $rootScope.allPlaymates[index].age,
-        age: $rootScope.allPlaymates[index].bio,
+        city: $rootScope.allPlaymates[index].cityIn,
+        bio: $rootScope.allPlaymates[index].bio,
         gender: $rootScope.allPlaymates[index].gender,
         sterile: $rootScope.allPlaymates[index].sterile,
         vaccinated: $rootScope.allPlaymates[index].vaccinated,
-        location: $scope.allPlaymates[index].location
+        location: $scope.allPlaymates[index].location,
+        size: $scope.allPlaymates[index].sizeIn,
+        playstyles: $scope.allPlaymates[index].playstyles
       };
+
       console.log('sending fave to server:', faveToSend);
       // post method to send fave to server
       $http({
@@ -184,6 +205,20 @@ angular.module('myApp').controller('PlaymateController', [
       });
     }; // end removeFave
 
+
+    // get method to retrieve newest playmate created from server
+    $scope.displayProfile = function() {
+      $http({
+        method: 'GET',
+        url: '/getNewest'
+      }).then(function(response) {
+        $rootScope.playmateProfile = response.data;
+        console.log('YES! Newest playmate:', $rootScope.playmateProfile);
+      }, function myError (response) {
+        console.log(response.statusText);
+      });
+    }; // end displayProfile
+    $scope.displayProfile();
 
 
 
