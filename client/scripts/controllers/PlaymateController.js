@@ -14,7 +14,7 @@ angular.module('myApp').controller('PlaymateController', [
     // simple substring filter
     $scope.customArrayFilter = function(item) {
       return(item.playstyles.indexOf('it') != -1);
-    };
+    };    
 
     ////////////////////////////////////////////////////////////
     //  ADDING NEW PLAYMATE, IMAGES & POST METHOD TO SERVER   //

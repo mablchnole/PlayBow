@@ -1,5 +1,8 @@
 var myApp = angular.module('myApp', [
   'ngRoute',
+  'ngMaterial',
+  'ngMessages',
+  'material.svgAssetsCache',
   'ngFileUpload',
   'msieurtoph.ngCheckboxes'
 ]);
