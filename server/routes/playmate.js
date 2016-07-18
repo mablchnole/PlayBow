@@ -86,7 +86,7 @@ router.get('/getFaves', function(req, res) {
       results.push(row);
     }); // end query push
     callDatabase.on('end', function(){
-      console.log('who let the faves out?!', results);
+      console.log('FAVORITES BACK FROM DATABASE SUCCESS', results);
       return res.json(results);
     });
     if(err) {

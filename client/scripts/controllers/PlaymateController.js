@@ -162,7 +162,7 @@ angular.module('myApp').controller('PlaymateController', [
       var idToSend = {
         id: faveId
       };
-      console.log(faveId);
+      console.log('sending this id to delete:', idToSend);
       $http ({
         method: 'DELETE',
         url: '/removeFave',
@@ -170,12 +170,8 @@ angular.module('myApp').controller('PlaymateController', [
         headers: {'Content-Type': 'application/json;charset=utf-8'}
       }).then(function() {
         $scope.displayFaves();
-        console.log('back from server in removeFave');
+        console.log('successfully deleted from database');
       });
     }; // end removeFave
-
-
-
-
 
 }]);
