@@ -8,8 +8,8 @@ angular.module('myApp').controller('PlaymateController', [
   function($scope, $rootScope, $http, $window, $location, Upload, $filter) {
     $rootScope.playmateProfile = [];
     $rootScope.allPlaymates = [];
-    $scope.favePlaymates = [];
-    $scope.playstyles = [];
+    $rootScope.favePlaymates = [];
+    $rootScope.playstyles = [];
     $rootScope.playmateMatches = [];
 
     // simple substring filter
@@ -17,11 +17,8 @@ angular.module('myApp').controller('PlaymateController', [
       return(item.playstyles.indexOf('it') != -1);
     };
 
-
-
-
     ////////////////////////////////////////////////////////////
-    //  ADDING NEW PLAYMATE, IMAGES & POST METHOD TO SERVER   //
+    //                    POST METHODS                        //
     ////////////////////////////////////////////////////////////
 
     // upload image on submit
@@ -72,35 +69,23 @@ angular.module('myApp').controller('PlaymateController', [
         // function to bind list of checkbox options and push to one array
         $scope.add = function(value) {
           if (!angular.isArray($scope.playstyles)) {
-            $scope.playstyles = [];
+            $rootScope.playstyles = [];
           }
-          if (-1 === $scope.playstyles.indexOf(value)) {
-            $scope.playstyles.push(value);
-            console.log('checkbox function array:', $scope.playstyles);
+          if (-1 === $rootScope.playstyles.indexOf(value)) {
+            $rootScope.playstyles.push(value);
+            console.log('checkbox function array:', $rootScope.playstyles);
           }
         }; // end add function
         // not currently using this but may want to in the future
         $scope.remove = function(value) {
-          if (!angular.isArray($scope.playstyles)) {
+          if (!angular.isArray($rootScope.playstyles)) {
             return;
           }
-          var index = $scope.playstyles.indexOf(value);
+          var index = $rootScope.playstyles.indexOf(value);
           if (-1 !== index) {
-            $scope.playstyles.splice(index, 1);
+            $rootScope.playstyles.splice(index, 1);
           }
         }; // end remove function
-
-        // clears out our input fields
-        $scope.emailIn = '';
-        $scope.nameIn = '';
-        $scope.breedIn = '';
-        $scope.ageIn = '';
-        $scope.bioIn = '';
-        $scope.genderIn = '';
-        $scope.sterileIn = '';
-        $scope.vaccinatedIn = '';
-        $scope.sizeIn = '';
-
         console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
         // $scope.displayPlaymates();
         $location.path('/profile');
@@ -111,38 +96,6 @@ angular.module('myApp').controller('PlaymateController', [
           console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
       });
     }; // end upload function
-
-    ////////////////////////////////////////////////////////////
-    //  DISPLAYING PLAYMATE, IMAGES & GET METHODS TO SERVER   //
-    ////////////////////////////////////////////////////////////
-
-    // get method to retrieve data from server to display
-    $scope.displayPlaymates = function() {
-      // retrieve data from server
-      $http({
-        method: 'GET',
-        url: '/getPlaymates'
-      }).then(function(response) {
-        $rootScope.allPlaymates = response.data;
-        console.log('so many new furiends!', response.data);
-      }, function myError (response) {
-        console.log(response.statusText);
-      });
-    }; // end displayPlaymates
-    $scope.displayPlaymates();
-
-    ////////////////////////////////////////////////////////////
-    //           ADDING & REMOVING FROM FAVES LIST            //
-    ////////////////////////////////////////////////////////////
-
-    $scope.schedulePlaydate = function(index) {
-      // email contact
-      $scope.Subject = "PlayBow - Playdate Request";
-      $scope.bodyText = "Hi" + " " + $rootScope.allPlaymates[index].name + "! We found you on PlayBow and would like to schedule a playdate. Please let us know if you're interested. From: " + $rootScope.playmateProfile[0].name + ".";
-      $scope.mailLink = "mailto:" + $rootScope.allPlaymates[index].email + "?subject=" + $scope.Subject + '&body=' + $scope.bodyText;
-
-    };
-
 
     // send selected favorites to the database
     $scope.addFave = function(index){
@@ -157,9 +110,9 @@ angular.module('myApp').controller('PlaymateController', [
         gender: $rootScope.allPlaymates[index].gender,
         sterile: $rootScope.allPlaymates[index].sterile,
         vaccinated: $rootScope.allPlaymates[index].vaccinated,
-        location: $scope.allPlaymates[index].location,
-        size: $scope.allPlaymates[index].sizeIn,
-        playstyles: $scope.allPlaymates[index].playstyles
+        location: $rootScope.allPlaymates[index].location,
+        size: $rootScope.allPlaymates[index].sizeIn,
+        playstyles: $rootScope.allPlaymates[index].playstyles
       };
 
       console.log('sending fave to server:', faveToSend);
@@ -173,6 +126,29 @@ angular.module('myApp').controller('PlaymateController', [
       }); // end post route
     }; // end addFave
 
+
+    ////////////////////////////////////////////////////////////
+    //                     GET METHODS                        //
+    ////////////////////////////////////////////////////////////
+
+
+    // get method to retrieve data from server to display
+    $scope.displayPlaymates = function() {
+      // retrieve data from server
+      $http({
+        method: 'GET',
+        url: '/getPlaymates'
+      }).then(function(response) {
+        $rootScope.allPlaymates = response.data;
+        console.log('so many new furiends!', response.data);
+      }, function myError (response) {
+        console.log(response.statusText);
+      });
+    }; // end displayPlaymates
+
+    $scope.displayPlaymates();
+
+
     // retrieve faves from server to display
     $scope.displayFaves = function() {
       // get method to retrieve faves
@@ -180,13 +156,41 @@ angular.module('myApp').controller('PlaymateController', [
         method: 'GET',
         url: '/getFaves'
       }).then(function(response) {
-        $scope.favePlaymates = response.data;
+        $rootScope.favePlaymates = response.data;
         console.log('so many fave furiends!', response.data);
       }, function myError (response) {
         console.log(response.statusText);
       });
     }; // end displayPlaymates
     $scope.displayFaves();
+
+
+    // get method to retrieve newest playmate created from server
+    $scope.displayProfile = function() {
+      $http({
+        method: 'GET',
+        url: '/getNewest'
+      }).then(function(response) {
+        $rootScope.playmateProfile = response.data;
+        console.log('YES! Newest playmate:', $rootScope.playmateProfile);
+      }, function myError (response) {
+        console.log(response.statusText);
+      });
+    }; // end displayProfile
+    $scope.displayProfile();
+
+
+
+    // schedule playdate via mailto email
+    $scope.schedulePlaydate = function(index) {
+      $scope.Subject = "PlayBow - Playdate Request";
+      $scope.bodyText = "Hi" + " " + $rootScope.allPlaymates[index].name + "! We found you on PlayBow and would like to schedule a playdate. Please let us know if you're interested. From: " + $rootScope.playmateProfile[0].name + ".";
+      $scope.mailLink = "mailto:" + $rootScope.allPlaymates[index].email + "?subject=" + $scope.Subject + '&body=' + $scope.bodyText;
+    };
+
+    ////////////////////////////////////////////////////////////
+    //                    DELETE METHOD                      //
+    ////////////////////////////////////////////////////////////
 
     // delete fave from list and database
     $scope.removeFave = function(faveId) {
@@ -204,20 +208,5 @@ angular.module('myApp').controller('PlaymateController', [
         console.log('back from server in removeFave');
       });
     }; // end removeFave
-
-
-    // get method to retrieve newest playmate created from server
-    $scope.displayProfile = function() {
-      $http({
-        method: 'GET',
-        url: '/getNewest'
-      }).then(function(response) {
-        $rootScope.playmateProfile = response.data;
-        console.log('YES! Newest playmate:', $rootScope.playmateProfile);
-      }, function myError (response) {
-        console.log(response.statusText);
-      });
-    }; // end displayProfile
-    $scope.displayProfile();
 
 }]);
