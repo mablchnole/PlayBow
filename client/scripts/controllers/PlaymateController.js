@@ -17,7 +17,7 @@ angular.module('myApp').controller('PlaymateController', [
     };
 
     ////////////////////////////////////////////////////////////
-    //  ADDING NEW PLAYMATE, IMAGES & POST METHOD TO SERVER   //
+    //                    POST METHODS                        //
     ////////////////////////////////////////////////////////////
 
     // upload image on submit
@@ -82,16 +82,6 @@ angular.module('myApp').controller('PlaymateController', [
             $scope.playstyles.splice(index, 1);
           }
         }; // end remove function
-
-        // clears out our input fields
-        $scope.nameIn = '';
-        $scope.breedIn = '';
-        $scope.ageIn = '';
-        $scope.genderIn = '';
-        $scope.sterileIn = '';
-        $scope.vaccinatedIn = '';
-        $scope.sizeIn = '';
-
         console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
         // $scope.displayPlaymates();
         $location.path('/profile');
@@ -102,29 +92,6 @@ angular.module('myApp').controller('PlaymateController', [
           console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
       });
     }; // end upload function
-
-    ////////////////////////////////////////////////////////////
-    //  DISPLAYING PLAYMATE, IMAGES & GET METHODS TO SERVER   //
-    ////////////////////////////////////////////////////////////
-
-    // get method to retrieve data from server to display
-    $scope.displayPlaymates = function() {
-      // retrieve data from server
-      $http({
-        method: 'GET',
-        url: '/getPlaymates'
-      }).then(function(response) {
-        $rootScope.allPlaymates = response.data;
-        console.log('so many new furiends!', response.data);
-      }, function myError (response) {
-        console.log(response.statusText);
-      });
-    }; // end displayPlaymates
-    $scope.displayPlaymates();
-
-    ////////////////////////////////////////////////////////////
-    //           ADDING & REMOVING FROM FAVES LIST            //
-    ////////////////////////////////////////////////////////////
 
     // send selected favorites to the database
     $scope.addFave = function(index){
@@ -149,7 +116,27 @@ angular.module('myApp').controller('PlaymateController', [
       }); // end post route
     }; // end addFave
 
-    // retrieve faves from server to display
+
+    ////////////////////////////////////////////////////////////
+    //                     GET METHODS                        //
+    ////////////////////////////////////////////////////////////
+
+    // get method to retrieve all playmates
+    $scope.displayPlaymates = function() {
+      // retrieve data from server
+      $http({
+        method: 'GET',
+        url: '/getPlaymates'
+      }).then(function(response) {
+        $rootScope.allPlaymates = response.data;
+        console.log('all the playmates back from server', $rootScope.allPlaymates);
+      }, function myError (response) {
+        console.log(response.statusText);
+      });
+    }; // end displayPlaymates
+    $scope.displayPlaymates();
+
+    // retrieve just the faves from server to display
     $scope.displayFaves = function() {
       // get method to retrieve faves
       $http({
@@ -157,12 +144,16 @@ angular.module('myApp').controller('PlaymateController', [
         url: '/getFaves'
       }).then(function(response) {
         $scope.favePlaymates = response.data;
-        console.log('so many fave furiends!', response.data);
+        console.log('all the favorites back from server', $scope.favePlaymates);
       }, function myError (response) {
         console.log(response.statusText);
       });
     }; // end displayPlaymates
     $scope.displayFaves();
+
+    ////////////////////////////////////////////////////////////
+    //                    DELETE METHOD                      //
+    ////////////////////////////////////////////////////////////
 
     // delete fave from list and database
     $scope.removeFave = function(faveId) {
@@ -177,7 +168,7 @@ angular.module('myApp').controller('PlaymateController', [
         headers: {'Content-Type': 'application/json;charset=utf-8'}
       }).then(function() {
         $scope.displayFaves();
-        console.log('back from server in removeFave');
+        console.log('successfully deleted');
       });
     }; // end removeFave
 
