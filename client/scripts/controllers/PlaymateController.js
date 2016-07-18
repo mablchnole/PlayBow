@@ -8,7 +8,7 @@ angular.module('myApp').controller('PlaymateController', [
   function($scope, $rootScope, $http, $window, $location, Upload, $filter) {
 
     $rootScope.allPlaymates = [];
-    $scope.favePlaymates = [];
+    $rootScope.favePlaymates = [];
     $scope.playstyles = [];
 
     // simple substring filter
@@ -134,6 +134,7 @@ angular.module('myApp').controller('PlaymateController', [
         console.log(response.statusText);
       });
     }; // end displayPlaymates
+
     $scope.displayPlaymates();
 
     // retrieve just the faves from server to display
@@ -143,12 +144,13 @@ angular.module('myApp').controller('PlaymateController', [
         method: 'GET',
         url: '/getFaves'
       }).then(function(response) {
-        $scope.favePlaymates = response.data;
-        console.log('all the favorites back from server', $scope.favePlaymates);
+        $rootScope.favePlaymates = response.data;
+        console.log('all the favorites back from server', $rootScope.favePlaymates);
       }, function myError (response) {
         console.log(response.statusText);
       });
     }; // end displayPlaymates
+
     $scope.displayFaves();
 
     ////////////////////////////////////////////////////////////
