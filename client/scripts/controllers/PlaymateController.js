@@ -170,7 +170,7 @@ angular.module('myApp').controller('PlaymateController', [
         headers: {'Content-Type': 'application/json;charset=utf-8'}
       }).then(function() {
         $scope.displayFaves();
-        console.log('successfully deleted');
+        console.log('back from server in removeFave');
       });
     }; // end removeFave
 
